@@ -1,0 +1,15 @@
+{
+  
+  "category":[
+      {"id": "1" , 
+       "name": "chips" } , 
+
+      {"id": "2" ,
+         "name": "drinks"} ,
+
+      {"id": "3" , 
+        "name": "biscuits"}
+  ]
+
+}
+

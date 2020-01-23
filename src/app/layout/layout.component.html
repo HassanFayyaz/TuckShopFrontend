@@ -1,0 +1,51 @@
+<nz-layout style="width: 100%;">
+  <nz-sider nzCollapsible [(nzCollapsed)]="CollapsedNav" [nzTrigger]="null">
+    <div class="logo" style="height:50px; background-color:#001529;">
+      <img src="assets/icons8-shopping-cart-40.png"/>
+    </div>
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li
+       nz-menu-item *ngFor="let c of categoriesArray" (click)="addCategoryToUrl(c.name)"
+       nz-popover
+       [nzPopoverContent]="c.name"
+      nzPopoverPlacement="right">
+        <img [src]="c.icons" />
+       
+        <!-- <span>{{c.name}}</span> -->
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout style="background-color: white;">
+    <nz-header style="height:50px; background-color:#001529;">
+      <i
+          class="trigger"
+          nz-icon
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="CollapsedNav"
+        ></i>
+    </nz-header>
+
+    <nz-content>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item style="padding: 0px;">Categories</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Chips</nz-breadcrumb-item>
+      </nz-breadcrumb>
+     
+      <div nz-row>
+        <div nz-col nzSpan="16">
+          <app-product-listing></app-product-listing>
+        </div>
+        <div nz-col nzSpan="7" nzOffset="1">
+          <app-checkout></app-checkout>
+        </div>
+      </div>
+    </nz-content>
+
+    <nz-footer>Ant Design ©2019 Implement By Stepway</nz-footer>
+  </nz-layout>
+</nz-layout>

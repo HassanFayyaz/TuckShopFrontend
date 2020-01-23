@@ -1,0 +1,134 @@
+<nz-content>
+  <!-- <nz-breadcrumb> </nz-breadcrumb> -->
+  <div class="inner-content">
+    <div nz-row>
+      <div nz-col nzSpan="9" style="margin-top:7px;">
+        <h3><b>Cart : <img src="assets/icons8-shopping-cart-40a.png" /></b></h3>
+      </div>
+    
+      <div nz-col nzSpan="8" nzOffset="6">
+          <button nz-button nzType="primary" (click)="showRequest()">Request For Product</button>
+          <nz-modal
+            [(nzVisible)]="isVisibleRequest"
+            nzTitle="Request"
+            nzOkText="Submit"
+            [nzOkDisabled]="disableButton()"
+            nzCancelText="Cancel"
+            (nzOnOk)="handleOkButton()"
+            (nzOnCancel)="handleCancelButton()"
+            [nzOkLoading]="isOkLoading"
+          >
+          <h3>Product Name:</h3>
+          <input nz-input placeholder="Request for a product*"  name="name" [(ngModel)]="checkoutobj.name" />
+          </nz-modal>
+        </div>
+    </div>
+
+    <hr style="color: black;"/>
+
+
+    <div style="height: 400px; overflow-y: scroll; border-style: groove;">
+      <div>
+        <div *ngFor="let data of checkoutProductsArray">
+          <nz-card nzHoverable style="width:100%">
+            <div nz-row>
+              <div nz-col nzSpan="3">
+                <nz-avatar
+                  [nzShape]="'square'"
+                  [nzSize]="64"
+                  [nzSrc]="data.productImage"
+                  [nzIcon]="'user'"
+                ></nz-avatar>
+              </div>
+              <div nz-col nzSpan="5" nzOffset="2">
+                <h4 nz-title style="font-size: 15px;">
+                  {{ data.productTitle }}
+                </h4>
+              </div>
+              <div nz-col nzSpan="3" nzOffset="1">
+                <h4 nz-title style="font-size: 15px;">
+                  {{ data.productPrice }}
+                </h4>
+              </div>
+              <div nz-col nzSpan="7" style="font-size: 15px;">
+                <h6>Quantity: {{ data.productQuantity }} 
+                        <nz-button-group>
+                                <button nz-button (click)="plusProducts(data)">
+                                  <i nz-icon nzType="plus"></i>
+                                </button>
+                                <button nz-button (click)="minusProducts(data)">
+                                  <i nz-icon nzType="minus"></i>
+                                </button>
+                              </nz-button-group>   
+                </h6>
+                            
+              </div>
+              <div
+                nz-col
+                nzSpan="2"
+                nzOffset="1"
+                (click)="removeProductFromCheckout(data)"
+              >
+                <img src="assets/icons8-delete-bin-24.png" />
+              </div>
+            </div>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+    <div>
+        
+    
+    <hr style="color: black;" />
+
+    <div nz-row>
+      <div nz-col nzSpan="12" style="margin-top: 10px;">
+        <h3><b>Total: {{ total }}</b></h3>
+      </div>
+      <div nz-col nzSpan="6" nzOffset="6">
+            <button nz-button nzType="danger" (click)="showModal()">Checkout</button> 
+
+         <nz-modal
+          [(nzVisible)]="isVisible"
+          nzTitle="Checkout"
+          nzOkText="Print"
+          nzCancelText="Continue"
+          (nzOnOk)="Print()"
+          (nzOnCancel)="handleCancel()"
+        >
+         <p>Thanks for Shopping</p>
+         
+        </nz-modal>
+      </div>
+      </div>
+    </div>
+  </div>
+</nz-content>
+
+<div id="print-section" [hidden]="true">
+        <div class="container">
+          <h2>Order Slip</h2>
+          <table class="table table-striped">
+            <thead>
+              <th *ngFor="let col of cols" style="text-align: center; ">
+                {{ col.header }}
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of checkoutProductsArray" style="overflow: auto; ">
+                <td>{{ data.productTitle }}</td>
+                <td>{{ data.printProductPrice }}</td>
+                <td>{{ data.productQuantity }}</td>
+                <td>{{ data.productPrice }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <hr style="border:1px solid black;width:100%;" />
+            <span
+              ><b> Total: </b> <span style="margin-left:83%;">{{ total }}</span></span
+            >
+            <hr style="border:1px solid black;width:100%;" />
+          </div>
+        </div>
+      </div>
